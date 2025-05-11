@@ -1,0 +1,74 @@
+
+public class TFlipFlop extends FlipFlop {
+
+    public TFlipFlop(java.util.Scanner scanner) {
+        super("T", scanner);
+    }
+
+    @Override
+    public void simulate() {
+        // default previous input: 0
+        System.out.println("\n===== T FLIP-FLOP SIMULATION =====");
+        System.out.println("Previous output (Q): " + previousOutput);
+
+        boolean flipFlopRunning = true;
+
+        while (flipFlopRunning) {
+            // default previous input = 0
+            System.out.println("\nCurrent T Flip-Flop State:");
+            System.out.println("- Previous Output (Q): " + previousOutput);
+
+            // Inputs for T FlipFlop is T
+            // valid inputs: 0 or 1
+            System.out.println("\nEnter input value (input will reset to 0 after a few seconds)");
+            int t = getIntInput("Enter T (0 or 1): ", 0, 1);
+
+            // sets inputs as active and schedule reset
+            inputActive = true;
+            scheduleInputReset();
+
+            // uses inputted T value and previous output to calculate new output
+            int newOutput = calculateOutput(t, previousOutput);
+
+            // displays results
+            displayResults(t, previousOutput, newOutput);
+            previousOutput = newOutput;
+
+            System.out.println("\nDo you want to continue with T Flip-Flop?");
+            System.out.println("1. Continue with T Flip-Flop");
+            System.out.println("2. Back to Main Menu");
+
+            // if 2 is chosen, goes back to main menu
+            int choice = getIntInput("Enter your choice (1-2): ", 1, 2);
+            if (choice == 2) {
+                flipFlopRunning = false;
+            }
+        }
+    }
+
+    private int calculateOutput(int t, int previousQ) {
+        // if t = 0, this means that previous output is kept
+        // ex: if previous Q was 0, then current Q will be 0 too; vice versa
+        if (t == 0) {
+            return previousQ; // No change
+        // if t = 1, this means that the previous output will toggle
+        // ex: if previous Q was 0, then current Q will be 1; vice versa
+        } else { // t == 1
+            return (previousQ == 0) ? 1 : 0; // Toggle
+        }
+    }
+
+    // displays current results
+    private void displayResults(int t, int previousQ, int newQ) {
+        System.out.println("\n===== RESULTS =====");
+        System.out.println("Flip-Flop Type: T");
+        System.out.println("Previous Inputs: N/A");
+        System.out.println("Current Input: T=" + t);
+        System.out.println("Previous Output: Q=" + previousQ);
+        System.out.println("New Output: Q=" + newQ);
+
+        if (t == 1) {
+            System.out.println("Note: T=1 toggles the output.");
+        }
+    }
+}
