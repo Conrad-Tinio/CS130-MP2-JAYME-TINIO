@@ -41,6 +41,10 @@ public abstract class FlipFlop {
 
     public abstract void displayTruthTable(); 
 
+    protected abstract void processInputReset(); 
+
+    protected boolean continueProcessReset = true;
+
     // resets input signals to 0 after a certain amount of time
     protected void scheduleInputReset() {
         Timer timer = new Timer();
@@ -49,7 +53,12 @@ public abstract class FlipFlop {
             public void run() {
                 if (inputActive) {
                     inputActive = false;
-                    System.out.println("\n[Input signals have reset to 0]");
+                    System.out.println("\n\n[Input signals have reset to 0]");
+                    if (continueProcessReset) {
+                        processInputReset();
+                    } else {
+                        System.out.println("Flip Flop type does not need input reset.");
+                    }
                 }
                 timer.cancel();
             }
@@ -93,11 +102,10 @@ public abstract class FlipFlop {
         System.out.println(row.toString());
     }
     
-    // Displays a table header with column titles
     protected void displayTableHeader(String... headers) {
         int[] widths = new int[headers.length];
         for (int i = 0; i < headers.length; i++) {
-            widths[i] = 20; // Fixed width of 15 chars for each column
+            widths[i] = 20; 
         }
         
         String line = createHorizontalLine(widths);
@@ -106,7 +114,6 @@ public abstract class FlipFlop {
         System.out.println(line);
     }
 
-    // Displays a table footer
     protected void displayTableFooter(int columns) {
         int[] widths = new int[columns];
         for (int i = 0; i < columns; i++) {

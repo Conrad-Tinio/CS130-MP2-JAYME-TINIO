@@ -3,6 +3,7 @@ public class JKFlipFlop extends FlipFlop {
 
     public JKFlipFlop(java.util.Scanner scanner) {
         super("JK", scanner);
+        continueProcessReset = true;
     }
 
     // NOTE: J is S and K is R when comparing to an RS FlipFlop
@@ -10,6 +11,19 @@ public class JKFlipFlop extends FlipFlop {
     @Override
     protected void previousInputsTracker() {
         previousInputs = new int[2];
+    }
+
+    @Override 
+    protected void processInputReset() {
+        System.out.println("\nNOTE: JK inputs have reset back to 0.");
+        System.out.println("\n===== JK FLIP-FLOP RESET =====");
+
+        previousInputs[0] = 0; 
+        previousInputs[1] = 0; 
+
+        displayTableHeader("Previous Input", "J", "K", "Q(t+1)");
+        displayTableRow("Auto", "0", "0", ""+previousOutput);
+        displayTableFooter(4);
     }
 
     @Override
@@ -110,14 +124,14 @@ public class JKFlipFlop extends FlipFlop {
         // System.out.println("New Output: Q=" + newQ);
 
         if (j == 1 && k == 1) {
-            displayTableHeader("Previous Inputs", "J", "K", "Q", "Q(t+1)");
-            displayTableRow(prevInputs, ""+j, ""+k, ""+previousQ, ""+newQ);
-            displayTableFooter(5);
+            displayTableHeader("Previous Inputs", "J", "K", "Q(t+1)");
+            displayTableRow(prevInputs, ""+j, ""+k, ""+newQ);
+            displayTableFooter(4);
             System.out.println("\nNOTE: In a JK Flip-Flop, when J=1, K=1, the current state is complemented.");
         } else {
-            displayTableHeader("Previous Input", "J", "K", "Q", "Q(t+1)");
-            displayTableRow(prevInputs, ""+j, ""+k, ""+previousQ, ""+newQ);
-            displayTableFooter(5);
+            displayTableHeader("Previous Input", "J", "K", "Q(t+1)");
+            displayTableRow(prevInputs, ""+j, ""+k,""+newQ);
+            displayTableFooter(4);
         }
     }
 }

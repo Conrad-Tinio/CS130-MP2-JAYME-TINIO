@@ -2,11 +2,17 @@ public class DFlipFlop extends FlipFlop {
 
     public DFlipFlop(java.util.Scanner scanner) {
         super("D", scanner);
+        continueProcessReset = false;
     }
 
     @Override 
     protected void previousInputsTracker() {
         previousInputs = new int[1];
+    }
+
+    @Override
+    protected void processInputReset() {
+        System.out.println("D Flip Flop does not require any input reset");
     }
 
     @Override
@@ -44,7 +50,6 @@ public class DFlipFlop extends FlipFlop {
 
             // inputs are now active
             inputActive = true;
-            scheduleInputReset();
 
             // gives out calculated d as argument
             int newOutput = calculateOutput(d);
@@ -55,7 +60,6 @@ public class DFlipFlop extends FlipFlop {
 
             previousInputs[0] = d;
             previousInputsExist = true;
-
 
             System.out.println("\nDo you want to continue with D Flip-Flop?");
             System.out.println("1. Continue with D Flip-Flop");

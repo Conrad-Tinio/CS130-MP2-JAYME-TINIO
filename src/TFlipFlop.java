@@ -3,11 +3,17 @@ public class TFlipFlop extends FlipFlop {
 
     public TFlipFlop(java.util.Scanner scanner) {
         super("T", scanner);
+        continueProcessReset = false;
     }
 
     @Override
     protected void previousInputsTracker() {
         previousInputs = new int[1];
+    }
+
+    @Override
+    protected void processInputReset() {
+        System.out.println("T Flip Flop does not require any input reset");
     }
 
     @Override
@@ -43,9 +49,8 @@ public class TFlipFlop extends FlipFlop {
             System.out.println("\nEnter input value (input will reset to 0 after a few seconds)");
             int t = getIntInput("Enter T (0 or 1): ", 0, 1);
 
-            // sets inputs as active and schedule reset
+            // sets inputs as active 
             inputActive = true;
-            scheduleInputReset();
 
             // uses inputted T value and previous output to calculate new output
             int newOutput = calculateOutput(t, previousOutput);

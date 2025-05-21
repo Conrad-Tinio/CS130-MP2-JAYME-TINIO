@@ -3,11 +3,25 @@ public class RSFlipFlop extends FlipFlop {
 
     public RSFlipFlop(java.util.Scanner scanner) {
         super("RS", scanner);
+        continueProcessReset = true;
     }
 
     @Override
     protected void previousInputsTracker() {
         previousInputs = new int[2]; 
+    }
+
+    @Override 
+    protected void processInputReset() {
+        System.out.println("\nNOTE: RS inputs have reset back to 0.");
+        System.out.println("\n===== RS FLIP-FLOP RESET =====");
+
+        previousInputs[0] = 0; 
+        previousInputs[1] = 0; 
+
+        displayTableHeader("Previous Input", "R", "S", "Q(t+1)");
+        displayTableRow("Auto", "0", "0", ""+previousOutput);
+        displayTableFooter(4);
     }
 
     @Override
@@ -48,7 +62,7 @@ public class RSFlipFlop extends FlipFlop {
 
             // Set inputs as active and schedule reset
             inputActive = true;
-            scheduleInputReset(); // makes sure that the input values reset
+            scheduleInputReset();
 
             // uses values of r, s, and previous output to calculate the new output
             int newOutput = calculateOutput(r, s, previousOutput);
@@ -113,13 +127,13 @@ public class RSFlipFlop extends FlipFlop {
 
         if (r == 1 && s == 1) {
             System.out.println("Note: R=1, S=1 is an invalid state for RS Flip-Flop.");
-            displayTableHeader("Previous Inputs", "R", "S", "Q", "Q(t+1)");
-            displayTableRow(prevInputs, ""+r, ""+s, "Undefined", "Undefined");
-            displayTableFooter(5);
+            displayTableHeader("Previous Inputs", "R", "S", "Q(t+1)");
+            displayTableRow(prevInputs, ""+r, ""+s, "Undefined");
+            displayTableFooter(4);
         } else {
-            displayTableHeader("Previous Input", "R", "S", "Q", "Q(t+1)");
-            displayTableRow(prevInputs, ""+r, ""+s, ""+previousQ, ""+newQ);
-            displayTableFooter(5);
+            displayTableHeader("Previous Input", "R", "S", "Q(t+1)");
+            displayTableRow(prevInputs, ""+r, ""+s, ""+newQ);
+            displayTableFooter(4);
         }
     }
 }
