@@ -6,12 +6,23 @@ public class TFlipFlop extends FlipFlop {
     }
 
     @Override
+    protected void previousInputsTracker() {
+        previousInputs = new int[1];
+    }
+
+    @Override
     public void simulate() {
         // default previous input: 0
         System.out.println("\n===== T FLIP-FLOP SIMULATION =====");
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
+
+        String previousInputsDisplay = "N/A";
+        if (previousInputs[0] != 0) {
+            previousInputsDisplay = "T=" + previousInputs[0];
+        }
+        System.out.println("Previous Inputs: " + previousInputsDisplay);
 
         while (flipFlopRunning) {
             // default previous input = 0
@@ -33,6 +44,9 @@ public class TFlipFlop extends FlipFlop {
             // displays results
             displayResults(t, previousOutput, newOutput);
             previousOutput = newOutput;
+
+            previousInputs[0] = t;
+            previousInputsExist = true; 
 
             System.out.println("\nDo you want to continue with T Flip-Flop?");
             System.out.println("1. Continue with T Flip-Flop");
@@ -62,7 +76,13 @@ public class TFlipFlop extends FlipFlop {
     private void displayResults(int t, int previousQ, int newQ) {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: T");
-        System.out.println("Previous Inputs: N/A");
+
+        String prevInputs = "N/A";
+        if (previousInputsExist) {
+            prevInputs = "T=" + previousInputs[0]; 
+        }
+        System.out.println("Previous Inputs: " + prevInputs);
+
         System.out.println("Current Input: T=" + t);
         System.out.println("Previous Output: Q=" + previousQ);
         System.out.println("New Output: Q=" + newQ);

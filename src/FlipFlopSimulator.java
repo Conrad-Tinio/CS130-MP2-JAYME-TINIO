@@ -5,6 +5,11 @@ public class FlipFlopSimulator {
     private static final Scanner scanner = new Scanner(System.in);
     private static int sharedOutput = 0;
 
+    private static int[] rsInputs = new int[2]; 
+    private static int[] dInput = new int[1]; 
+    private static int[] jkInputs = new int[2]; 
+    private static int[] tInput = new int[1];
+
     public static void main(String[] args) {
         System.out.println("Welcome to Flip-Flop Simulator");
 
@@ -28,29 +33,37 @@ public class FlipFlopSimulator {
                     // RS FlipFlop for case 1
                     // simulates the function of an RS FlipFlop
                     rsFlipFlop.setOutput(sharedOutput);
+                    rsFlipFlop.setPreviousInputs(rsInputs);
                     rsFlipFlop.simulate(); // overridden function found in FlipFlop abstract class
                     sharedOutput = rsFlipFlop.getOutput();
+                    rsInputs = rsFlipFlop.getPreviousInputs();
                     break;
                 case 2:
                     // D FlipFlop for case 2
                     // simulates the function of a D FlipFlop
                     dFlipFlop.setOutput(sharedOutput);
+                    dFlipFlop.setPreviousInputs(dInput);
                     dFlipFlop.simulate();
                     sharedOutput = dFlipFlop.getOutput();
+                    dInput = dFlipFlop.getPreviousInputs();
                     break;
                 case 3:
                     // JK FlipFlop for case 3
                     // simulates the function of a JK FlipFlop
                     jkFlipFlop.setOutput(sharedOutput);
+                    jkFlipFlop.setPreviousInputs(jkInputs);
                     jkFlipFlop.simulate();
                     sharedOutput = jkFlipFlop.getOutput();
+                    jkInputs = dFlipFlop.getPreviousInputs();
                     break;
                 case 4:
                     // T FlipFlop for case 4
                     // simulates the function of a T FlipFlop
                     tFlipFlop.setOutput(sharedOutput);
+                    tFlipFlop.setPreviousInputs(tInput);
                     tFlipFlop.simulate();
                     sharedOutput = tFlipFlop.getOutput();
+                    tInput = tFlipFlop.getPreviousInputs();
                     break;
                 case 5:
                     // Stops running if 5 is picked

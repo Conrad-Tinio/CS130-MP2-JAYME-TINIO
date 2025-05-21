@@ -6,6 +6,12 @@ public class JKFlipFlop extends FlipFlop {
     }
 
     // NOTE: J is S and K is R when comparing to an RS FlipFlop
+
+    @Override
+    protected void previousInputsTracker() {
+        previousInputs = new int[2];
+    }
+
     @Override
     public void simulate() {
 
@@ -14,6 +20,12 @@ public class JKFlipFlop extends FlipFlop {
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
+
+        String previousInputsDisplay = "N/A";
+        if (previousInputs[0] != 0 || previousInputs[1] != 0) {
+            previousInputsDisplay = "J=" + previousInputs[0] + ", K=" + previousInputs[1]; 
+        }
+        System.out.println("Previous Inputs: " + previousInputsDisplay);
 
         while (flipFlopRunning) {
             System.out.println("\nCurrent JK Flip-Flop State:");
@@ -32,9 +44,15 @@ public class JKFlipFlop extends FlipFlop {
             // gives out j, k, and previous Output as arguments to calculate Q
             int newOutput = calculateOutput(j, k, previousOutput);
 
+
+
             // displays current results and initializes previous output to current one
             displayResults(j, k, previousOutput, newOutput);
             previousOutput = newOutput;
+
+            previousInputs[0] = j; 
+            previousInputs[1] = k; 
+            previousInputsExist = true;  
 
             System.out.println("\nDo you want to continue with JK Flip-Flop?");
             System.out.println("1. Continue with JK Flip-Flop");
@@ -71,7 +89,14 @@ public class JKFlipFlop extends FlipFlop {
     private void displayResults(int j, int k, int previousQ, int newQ) {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: JK");
-        System.out.println("Previous Inputs: N/A");
+
+        // for printing previous inputs 
+        String prevInputs = "N/A";
+        if (previousInputsExist) {
+            prevInputs = "J=" + previousInputs[0] + ", K=" + previousInputs[1]; 
+        }
+        System.out.println("Previous Inputs: " + prevInputs);
+
         System.out.println("Current Inputs: J=" + j + ", K=" + k);
         System.out.println("Previous Output: Q=" + previousQ);
         System.out.println("New Output: Q=" + newQ);

@@ -5,7 +5,9 @@ import java.util.TimerTask;
 // abstract class for all FlipFlops
 public abstract class FlipFlop {
     protected int previousOutput = 0; // default value for a flip flop
+    protected int[] previousInputs; 
     protected boolean inputActive = false; // initial value for input
+    protected boolean previousInputsExist = false;
     protected String type;
     protected Scanner scanner;
 
@@ -15,6 +17,8 @@ public abstract class FlipFlop {
         this.scanner = scanner;
     }
 
+    protected abstract void previousInputsTracker();
+
     // get and set functions
     public int getOutput() {
         return previousOutput;
@@ -22,6 +26,14 @@ public abstract class FlipFlop {
 
     public void setOutput(int output) {
         this.previousOutput = output;
+    }
+
+    public int[] getPreviousInputs() {
+        return previousInputs;
+    }
+
+    public void setPreviousInputs(int[] inputs) {
+        this.previousInputs = inputs; 
     }
 
     // function is overridden for each FlipFlop class type that extends this class

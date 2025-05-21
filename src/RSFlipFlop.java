@@ -6,12 +6,23 @@ public class RSFlipFlop extends FlipFlop {
     }
 
     @Override
+    protected void previousInputsTracker() {
+        previousInputs = new int[2]; 
+    }
+
+    @Override
     public void simulate() {
         // Starts out with 0 (default value) as previous input
         System.out.println("\n===== RS FLIP-FLOP SIMULATION =====");
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
+
+        String previousInputsDisplay = "N/A";
+        if (previousInputs[0] != 0 || previousInputs[1] != 0) {
+            previousInputsDisplay = "R=" + previousInputs[0] + ", S=" + previousInputs[1]; 
+        } 
+        System.out.println("Previous Inputs: " + previousInputsDisplay);
 
         while (flipFlopRunning) {
             System.out.println("\nCurrent RS Flip-Flop State:");
@@ -32,7 +43,9 @@ public class RSFlipFlop extends FlipFlop {
 
             // displays new results and makes the new output to previous output
             displayResults(r, s, previousOutput, newOutput);
-            previousOutput = newOutput;
+            previousInputs[0] = r; 
+            previousInputs[1] = s; 
+            previousInputsExist = true;
 
             // menu prompt
             System.out.println("\nDo you want to continue with RS Flip-Flop?");
@@ -73,7 +86,14 @@ public class RSFlipFlop extends FlipFlop {
     private void displayResults(int r, int s, int previousQ, int newQ) {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: RS");
-        System.out.println("Previous Inputs: N/A");
+
+        // for printing previous inputs 
+        String prevInputs = "N/A";
+        if (previousInputsExist) {
+            prevInputs = "R=" + previousInputs[0] + ", S=" + previousInputs[1]; 
+        }
+        System.out.println("Previous Inputs: " + prevInputs);
+
         System.out.println("Current Inputs: R=" + r + ", S=" + s);
         System.out.println("Previous Output: Q=" + previousQ);
         System.out.println("New Output: Q=" + newQ);
