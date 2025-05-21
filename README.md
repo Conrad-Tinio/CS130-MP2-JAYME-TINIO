@@ -6,7 +6,7 @@ The program should allow users to select a flip-flop type, input the relevant si
 output along with the previous input and output for reference.
 
 ### TECH STACK:
-* Java
+* Java, Docker
 
 ### DEVELOPERS:
 * Jayme, Alysa Mariel G.
