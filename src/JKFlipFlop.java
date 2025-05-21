@@ -13,10 +13,21 @@ public class JKFlipFlop extends FlipFlop {
     }
 
     @Override
+    public void displayTruthTable() {
+        displayTableHeader( "J", "K", "Q(t+1)");
+        displayTableRow("0", "0", "Q(t)  / No Change");
+        displayTableRow("0", "1", "0     / Reset");
+        displayTableRow("1", "0", "1     / Set");
+        displayTableRow("1", "1", "Q'(t) / Complement");
+        displayTableFooter(3);
+    }
+
+    @Override
     public void simulate() {
 
         // Starts out as 0 (default value) for previous input
         System.out.println("\n===== JK FLIP-FLOP SIMULATION =====");
+        displayTruthTable();
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
@@ -93,14 +104,20 @@ public class JKFlipFlop extends FlipFlop {
         if (previousInputsExist) {
             prevInputs = "J=" + previousInputs[0] + ", K=" + previousInputs[1]; 
         }
-        System.out.println("Previous Inputs: " + prevInputs);
-
-        System.out.println("Current Inputs: J=" + j + ", K=" + k);
-        System.out.println("Previous Output: Q=" + previousQ);
-        System.out.println("New Output: Q=" + newQ);
+        // System.out.println("Previous Inputs: " + prevInputs);
+        // System.out.println("Current Inputs: J=" + j + ", K=" + k);
+        // System.out.println("Previous Output: Q=" + previousQ);
+        // System.out.println("New Output: Q=" + newQ);
 
         if (j == 1 && k == 1) {
-            System.out.println("Note: J=1, K=1 toggles the output.");
+            displayTableHeader("Previous Inputs", "J", "K", "Q", "Q(t+1)");
+            displayTableRow(prevInputs, ""+j, ""+k, ""+previousQ, ""+newQ);
+            displayTableFooter(5);
+            System.out.println("\nNOTE: In a JK Flip-Flop, when J=1, K=1, the current state is complemented.");
+        } else {
+            displayTableHeader("Previous Input", "J", "K", "Q", "Q(t+1)");
+            displayTableRow(prevInputs, ""+j, ""+k, ""+previousQ, ""+newQ);
+            displayTableFooter(5);
         }
     }
 }

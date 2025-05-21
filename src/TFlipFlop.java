@@ -11,9 +11,18 @@ public class TFlipFlop extends FlipFlop {
     }
 
     @Override
+    public void displayTruthTable() {
+        displayTableHeader( "T", "Q(t+1)");
+        displayTableRow("0", "Q(t)  / No Change");
+        displayTableRow("1", "Q'(t) / Complement");
+        displayTableFooter(2);
+    }
+
+    @Override
     public void simulate() {
         // default previous input: 0
         System.out.println("\n===== T FLIP-FLOP SIMULATION =====");
+        displayTruthTable();
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
@@ -81,14 +90,20 @@ public class TFlipFlop extends FlipFlop {
         if (previousInputsExist) {
             prevInputs = "T=" + previousInputs[0]; 
         }
-        System.out.println("Previous Inputs: " + prevInputs);
-
-        System.out.println("Current Input: T=" + t);
-        System.out.println("Previous Output: Q=" + previousQ);
-        System.out.println("New Output: Q=" + newQ);
+        // System.out.println("Previous Inputs: " + prevInputs);
+        // System.out.println("Current Input: T=" + t);
+        // System.out.println("Previous Output: Q=" + previousQ);
+        // System.out.println("New Output: Q=" + newQ);
 
         if (t == 1) {
-            System.out.println("Note: T=1 toggles the output.");
+            displayTableHeader("Previous Inputs", "T", "Q", "Q(t+1)");
+            displayTableRow(prevInputs, ""+t, ""+previousQ, ""+newQ);
+            displayTableFooter(4);
+            System.out.println("NOTE: When t=1, it 'toggles' (complements) the current Q");
+        } else {
+            displayTableHeader("Previous Inputs", "T", "Q", "Q(t+1)");
+            displayTableRow(prevInputs, ""+t, ""+previousQ, ""+newQ);
+            displayTableFooter(4);
         }
     }
 }

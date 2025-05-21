@@ -1,4 +1,3 @@
-
 public class DFlipFlop extends FlipFlop {
 
     public DFlipFlop(java.util.Scanner scanner) {
@@ -11,9 +10,18 @@ public class DFlipFlop extends FlipFlop {
     }
 
     @Override
+    public void displayTruthTable() {
+        displayTableHeader( "D", "Q(t+1)");
+        displayTableRow("0", "0");
+        displayTableRow("1", "1");
+        displayTableFooter(2);
+    }
+
+    @Override
     public void simulate() {
         // starts out with 0 (default value)
         System.out.println("\n===== D FLIP-FLOP SIMULATION =====");
+        displayTruthTable();
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
@@ -80,10 +88,13 @@ public class DFlipFlop extends FlipFlop {
         if (previousInputsExist) {
             prevInputs = "D=" + previousInputs[0]; 
         }
-        System.out.println("Previous Inputs: " + prevInputs);
+        // System.out.println("Previous Inputs: " + prevInputs);
+        // System.out.println("Current Input: D=" + d);
+        // System.out.println("Previous Output: Q=" + previousQ);
+        // System.out.println("New Output: Q=" + newQ);
 
-        System.out.println("Current Input: D=" + d);
-        System.out.println("Previous Output: Q=" + previousQ);
-        System.out.println("New Output: Q=" + newQ);
+        displayTableHeader("Previous Inputs", "D", "Q", "Q(t+1)");
+        displayTableRow(prevInputs, ""+d, ""+previousQ, ""+newQ);
+        displayTableFooter(4);
     }
 }

@@ -11,9 +11,21 @@ public class RSFlipFlop extends FlipFlop {
     }
 
     @Override
+    public void displayTruthTable() {
+        displayTableHeader( "S", "R", "Q(t+1)");
+        displayTableRow("0", "0", "Q(t) / No Change");
+        displayTableRow("0", "1", "0    / Reset");
+        displayTableRow("1", "0", "1    / Set");
+        displayTableRow("1", "1", "?    / Unpredictable");
+        displayTableFooter(3);
+    }
+
+    @Override
     public void simulate() {
         // Starts out with 0 (default value) as previous input
         System.out.println("\n===== RS FLIP-FLOP SIMULATION =====");
+        System.out.println("Truth Table for RS Flip Flop:");
+        displayTruthTable();
         System.out.println("Previous output (Q): " + previousOutput);
 
         boolean flipFlopRunning = true;
@@ -44,7 +56,7 @@ public class RSFlipFlop extends FlipFlop {
             // displays new results and makes the new output to previous output
             displayResults(r, s, previousOutput, newOutput);
             previousOutput = newOutput;
-            
+
             previousInputs[0] = r; 
             previousInputs[1] = s; 
             previousInputsExist = true;
@@ -94,14 +106,20 @@ public class RSFlipFlop extends FlipFlop {
         if (previousInputsExist) {
             prevInputs = "R=" + previousInputs[0] + ", S=" + previousInputs[1]; 
         }
-        System.out.println("Previous Inputs: " + prevInputs);
-
-        System.out.println("Current Inputs: R=" + r + ", S=" + s);
-        System.out.println("Previous Output: Q=" + previousQ);
-        System.out.println("New Output: Q=" + newQ);
+        // System.out.println("Previous Inputs: " + prevInputs);
+        // System.out.println("Current Inputs: R=" + r + ", S=" + s);
+        // System.out.println("Previous Output: Q=" + previousQ);
+        // System.out.println("New Output: Q=" + newQ);
 
         if (r == 1 && s == 1) {
             System.out.println("Note: R=1, S=1 is an invalid state for RS Flip-Flop.");
+            displayTableHeader("Previous Inputs", "R", "S", "Q", "Q(t+1)");
+            displayTableRow(prevInputs, ""+r, ""+s, "Undefined", "Undefined");
+            displayTableFooter(5);
+        } else {
+            displayTableHeader("Previous Input", "R", "S", "Q", "Q(t+1)");
+            displayTableRow(prevInputs, ""+r, ""+s, ""+previousQ, ""+newQ);
+            displayTableFooter(5);
         }
     }
 }

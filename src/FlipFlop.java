@@ -39,6 +39,8 @@ public abstract class FlipFlop {
     // function is overridden for each FlipFlop class type that extends this class
     public abstract void simulate();
 
+    public abstract void displayTruthTable(); 
+
     // resets input signals to 0 after a certain amount of time
     protected void scheduleInputReset() {
         Timer timer = new Timer();
@@ -72,5 +74,44 @@ public abstract class FlipFlop {
                 System.out.println("Error: Please enter a valid integer");
             }
         }
+    }
+
+    // table format for displaying results
+    protected String createHorizontalLine(int... widths) {
+        StringBuilder line = new StringBuilder("+"); 
+        for (int width : widths) {
+            line.append("-".repeat(width+2)).append("+");
+        }
+        return line.toString();
+    }
+
+    protected void displayTableRow(String... columns) {
+        StringBuilder row = new StringBuilder("|");
+        for (String column : columns) {
+            row.append(" ").append(String.format("%-20s", column)).append(" |");
+        }
+        System.out.println(row.toString());
+    }
+    
+    // Displays a table header with column titles
+    protected void displayTableHeader(String... headers) {
+        int[] widths = new int[headers.length];
+        for (int i = 0; i < headers.length; i++) {
+            widths[i] = 20; // Fixed width of 15 chars for each column
+        }
+        
+        String line = createHorizontalLine(widths);
+        System.out.println(line);
+        displayTableRow(headers);
+        System.out.println(line);
+    }
+
+    // Displays a table footer
+    protected void displayTableFooter(int columns) {
+        int[] widths = new int[columns];
+        for (int i = 0; i < columns; i++) {
+            widths[i] = 20;
+        }
+        System.out.println(createHorizontalLine(widths));
     }
 }

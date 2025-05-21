@@ -49,7 +49,7 @@ public class FlipFlopSimulator {
                     break;
                 case 3:
                     // JK FlipFlop for case 3
-                    // simulates the function of a JK FlipFlop
+                    // simulates the function of a JK FlipFlop  
                     jkFlipFlop.setOutput(sharedOutput);
                     jkFlipFlop.setPreviousInputs(jkInputs);
                     jkFlipFlop.simulate();
