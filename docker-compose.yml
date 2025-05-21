@@ -1,0 +1,6 @@
+services:
+  cs130mp2jaymetinio:
+    image: cs130mp2jaymetinio
+    build:
+      context: .
+      dockerfile: ./Dockerfile
