@@ -16,9 +16,6 @@ public class RSFlipFlop extends FlipFlop {
         System.out.println("\nNOTE: RS inputs have reset back to 0.");
         System.out.println("\n===== RS FLIP-FLOP RESET =====");
 
-        previousInputs[0] = 0; 
-        previousInputs[1] = 0; 
-
         displayTableHeader("Previous Input", "R", "S", "Q(t+1)");
         displayTableRow("Auto", "0", "0", ""+previousOutput);
         displayTableFooter(4);

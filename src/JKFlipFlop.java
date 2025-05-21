@@ -18,9 +18,6 @@ public class JKFlipFlop extends FlipFlop {
         System.out.println("\nNOTE: JK inputs have reset back to 0.");
         System.out.println("\n===== JK FLIP-FLOP RESET =====");
 
-        previousInputs[0] = 0; 
-        previousInputs[1] = 0; 
-
         displayTableHeader("Previous Input", "J", "K", "Q(t+1)");
         displayTableRow("Auto", "0", "0", ""+previousOutput);
         displayTableFooter(4);
