@@ -44,8 +44,6 @@ public class JKFlipFlop extends FlipFlop {
             // gives out j, k, and previous Output as arguments to calculate Q
             int newOutput = calculateOutput(j, k, previousOutput);
 
-
-
             // displays current results and initializes previous output to current one
             displayResults(j, k, previousOutput, newOutput);
             previousOutput = newOutput;

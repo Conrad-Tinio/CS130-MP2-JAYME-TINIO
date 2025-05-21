@@ -43,6 +43,8 @@ public class RSFlipFlop extends FlipFlop {
 
             // displays new results and makes the new output to previous output
             displayResults(r, s, previousOutput, newOutput);
+            previousOutput = newOutput;
+            
             previousInputs[0] = r; 
             previousInputs[1] = s; 
             previousInputsExist = true;

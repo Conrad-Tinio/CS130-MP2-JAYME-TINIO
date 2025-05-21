@@ -12,7 +12,6 @@ public class DFlipFlop extends FlipFlop {
 
     @Override
     public void simulate() {
-
         // starts out with 0 (default value)
         System.out.println("\n===== D FLIP-FLOP SIMULATION =====");
         System.out.println("Previous output (Q): " + previousOutput);
