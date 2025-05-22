@@ -75,7 +75,15 @@ public abstract class FlipFlop {
         while (true) {
             try {
                 System.out.print(prompt);
-                input = Integer.parseInt(scanner.nextLine().trim());
+                String inputStr = scanner.nextLine().trim();
+                
+                // Check if input is a single character
+                if (inputStr.length() != 1) {
+                    System.out.println("Error: Please enter a single digit (0 or 1)");
+                    continue;
+                }
+                
+                input = Integer.parseInt(inputStr);
                 if (input >= min && input <= max) {
                     return input;
                 } else {
