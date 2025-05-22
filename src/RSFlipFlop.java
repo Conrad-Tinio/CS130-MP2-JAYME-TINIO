@@ -124,20 +124,20 @@ public class RSFlipFlop extends FlipFlop {
         // Add current iteration to history
         String currentIteration;
         if (r == 1 && s == 1) {
-            currentIteration = String.format("R=%d, S=%d → Undefined", r, s);
+            currentIteration = String.format("R=%d, S=%d → Q(t)=%d → Undefined", r, s, previousQ);
         } else {
-            currentIteration = String.format("R=%d, S=%d → %d", r, s, newQ);
+            currentIteration = String.format("R=%d, S=%d → Q(t)=%d → %d", r, s, previousQ, newQ);
         }
         iterationHistory.add(currentIteration);
 
         // Display history of iterations
         System.out.println("\nIteration History:");
-        displayTableHeader("Iteration", "Inputs", "Q(t+1)");
+        displayTableHeader("Iteration", "Inputs", "Q(t)", "Q(t+1)");
         for (int i = 0; i < iterationHistory.size(); i++) {
             String[] parts = iterationHistory.get(i).split(" → ");
-            displayTableRow("" + (i + 1), parts[0], parts[1]);
+            displayTableRow("" + (i + 1), parts[0], parts[1], parts[2]);
         }
-        displayTableFooter(3);
+        displayTableFooter(4);
 
         // Display current state
         System.out.println("\nCurrent State:");
