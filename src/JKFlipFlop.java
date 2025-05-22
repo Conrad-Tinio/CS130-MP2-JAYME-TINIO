@@ -1,5 +1,5 @@
-
 public class JKFlipFlop extends FlipFlop {
+    private java.util.List<String> iterationHistory = new java.util.ArrayList<>();
 
     public JKFlipFlop(java.util.Scanner scanner) {
         super("JK", scanner);
@@ -27,7 +27,8 @@ public class JKFlipFlop extends FlipFlop {
     public void clearOutputs() {
         previousInputs[0] = 0; 
         previousInputs[1] = 0; 
-        previousOutput = 0; 
+        previousOutput = 0;
+        iterationHistory.clear();
     }
 
     @Override
@@ -118,24 +119,29 @@ public class JKFlipFlop extends FlipFlop {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: JK");
 
-        // for printing previous inputs 
-        String prevInputs = "N/A";
-        if (previousInputsExist) {
-            prevInputs = "J=" + previousInputs[0] + ", K=" + previousInputs[1]; 
-        }
-        // System.out.println("Previous Inputs: " + prevInputs);
-        // System.out.println("Current Inputs: J=" + j + ", K=" + k);
-        // System.out.println("Previous Output: Q=" + previousQ);
-        // System.out.println("New Output: Q=" + newQ);
+        // Add current iteration to history
+        String currentIteration = String.format("J=%d, K=%d → Q=%d", j, k, newQ);
+        iterationHistory.add(currentIteration);
 
+        // Display history of iterations
+        System.out.println("\nIteration History:");
+        displayTableHeader("Iteration", "Inputs", "Output");
+        for (int i = 0; i < iterationHistory.size(); i++) {
+            String[] parts = iterationHistory.get(i).split(" → ");
+            displayTableRow("" + (i + 1), parts[0], parts[1]);
+        }
+        displayTableFooter(3);
+
+        // Display current state
+        System.out.println("\nCurrent State:");
         if (j == 1 && k == 1) {
-            displayTableHeader("Previous Inputs", "J", "K", "Q(t+1)");
-            displayTableRow(prevInputs, ""+j, ""+k, ""+newQ);
+            displayTableHeader("Previous Input", "J", "K", "Q(t+1)");
+            displayTableRow(previousInputsExist ? "J=" + previousInputs[0] + ", K=" + previousInputs[1] : "N/A", ""+j, ""+k, ""+newQ);
             displayTableFooter(4);
             System.out.println("\nNOTE: In a JK Flip-Flop, when J=1, K=1, the current state is complemented.");
         } else {
             displayTableHeader("Previous Input", "J", "K", "Q(t+1)");
-            displayTableRow(prevInputs, ""+j, ""+k,""+newQ);
+            displayTableRow(previousInputsExist ? "J=" + previousInputs[0] + ", K=" + previousInputs[1] : "N/A", ""+j, ""+k, ""+newQ);
             displayTableFooter(4);
         }
     }

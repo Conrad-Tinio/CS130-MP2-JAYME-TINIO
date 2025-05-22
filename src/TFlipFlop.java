@@ -1,5 +1,5 @@
-
 public class TFlipFlop extends FlipFlop {
+    private java.util.List<String> iterationHistory = new java.util.ArrayList<>();
 
     public TFlipFlop(java.util.Scanner scanner) {
         super("T", scanner);
@@ -19,7 +19,8 @@ public class TFlipFlop extends FlipFlop {
     @Override
     public void clearOutputs() {
         previousInputs[0] = 0;
-        previousOutput = 0; 
+        previousOutput = 0;
+        iterationHistory.clear();
     }
 
     @Override
@@ -98,23 +99,29 @@ public class TFlipFlop extends FlipFlop {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: T");
 
-        String prevInputs = "N/A";
-        if (previousInputsExist) {
-            prevInputs = "T=" + previousInputs[0]; 
-        }
-        // System.out.println("Previous Inputs: " + prevInputs);
-        // System.out.println("Current Input: T=" + t);
-        // System.out.println("Previous Output: Q=" + previousQ);
-        // System.out.println("New Output: Q=" + newQ);
+        // Add current iteration to history
+        String currentIteration = String.format("T=%d → Q=%d", t, newQ);
+        iterationHistory.add(currentIteration);
 
+        // Display history of iterations
+        System.out.println("\nIteration History:");
+        displayTableHeader("Iteration", "Input", "Output");
+        for (int i = 0; i < iterationHistory.size(); i++) {
+            String[] parts = iterationHistory.get(i).split(" → ");
+            displayTableRow("" + (i + 1), parts[0], parts[1]);
+        }
+        displayTableFooter(3);
+
+        // Display current state
+        System.out.println("\nCurrent State:");
         if (t == 1) {
-            displayTableHeader("Previous Inputs", "T", "Q", "Q(t+1)");
-            displayTableRow(prevInputs, ""+t, ""+previousQ, ""+newQ);
+            displayTableHeader("Previous Input", "T", "Q", "Q(t+1)");
+            displayTableRow(previousInputsExist ? "T=" + previousInputs[0] : "N/A", ""+t, ""+previousQ, ""+newQ);
             displayTableFooter(4);
             System.out.println("NOTE: When t=1, it 'toggles' (complements) the current Q");
         } else {
-            displayTableHeader("Previous Inputs", "T", "Q", "Q(t+1)");
-            displayTableRow(prevInputs, ""+t, ""+previousQ, ""+newQ);
+            displayTableHeader("Previous Input", "T", "Q", "Q(t+1)");
+            displayTableRow(previousInputsExist ? "T=" + previousInputs[0] : "N/A", ""+t, ""+previousQ, ""+newQ);
             displayTableFooter(4);
         }
     }

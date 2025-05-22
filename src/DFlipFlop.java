@@ -1,4 +1,5 @@
 public class DFlipFlop extends FlipFlop {
+    private java.util.List<String> iterationHistory = new java.util.ArrayList<>();
 
     public DFlipFlop(java.util.Scanner scanner) {
         super("D", scanner);
@@ -18,7 +19,8 @@ public class DFlipFlop extends FlipFlop {
     @Override
     public void clearOutputs() {
         previousInputs[0] = 0; 
-        previousOutput = 0; 
+        previousOutput = 0;
+        iterationHistory.clear();
     }
 
     @Override
@@ -94,18 +96,23 @@ public class DFlipFlop extends FlipFlop {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: D");
 
-        // for printing previous inputs 
-        String prevInputs = "N/A";
-        if (previousInputsExist) {
-            prevInputs = "D=" + previousInputs[0]; 
-        }
-        // System.out.println("Previous Inputs: " + prevInputs);
-        // System.out.println("Current Input: D=" + d);
-        // System.out.println("Previous Output: Q=" + previousQ);
-        // System.out.println("New Output: Q=" + newQ);
+        // Add current iteration to history
+        String currentIteration = String.format("D=%d → Q=%d", d, newQ);
+        iterationHistory.add(currentIteration);
 
-        displayTableHeader("Previous Inputs", "D", "Q", "Q(t+1)");
-        displayTableRow(prevInputs, ""+d, ""+previousQ, ""+newQ);
+        // Display history of iterations
+        System.out.println("\nIteration History:");
+        displayTableHeader("Iteration", "Input", "Output");
+        for (int i = 0; i < iterationHistory.size(); i++) {
+            String[] parts = iterationHistory.get(i).split(" → ");
+            displayTableRow("" + (i + 1), parts[0], parts[1]);
+        }
+        displayTableFooter(3);
+
+        // Display current state
+        System.out.println("\nCurrent State:");
+        displayTableHeader("Previous Input", "D", "Q", "Q(t+1)");
+        displayTableRow(previousInputsExist ? "D=" + previousInputs[0] : "N/A", ""+d, ""+previousQ, ""+newQ);
         displayTableFooter(4);
     }
 }

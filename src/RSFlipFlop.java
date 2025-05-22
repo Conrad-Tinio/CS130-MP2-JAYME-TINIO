@@ -1,5 +1,5 @@
-
 public class RSFlipFlop extends FlipFlop {
+    private java.util.List<String> iterationHistory = new java.util.ArrayList<>();
 
     public RSFlipFlop(java.util.Scanner scanner) {
         super("RS", scanner);
@@ -15,7 +15,8 @@ public class RSFlipFlop extends FlipFlop {
     public void clearOutputs() {
         previousInputs[0] = 0; 
         previousInputs[1] = 0; 
-        previousOutput = 0; 
+        previousOutput = 0;
+        iterationHistory.clear();
     }
 
     @Override 
@@ -120,24 +121,29 @@ public class RSFlipFlop extends FlipFlop {
         System.out.println("\n===== RESULTS =====");
         System.out.println("Flip-Flop Type: RS");
 
-        // for printing previous inputs 
-        String prevInputs = "N/A";
-        if (previousInputsExist) {
-            prevInputs = "R=" + previousInputs[0] + ", S=" + previousInputs[1]; 
-        }
-        // System.out.println("Previous Inputs: " + prevInputs);
-        // System.out.println("Current Inputs: R=" + r + ", S=" + s);
-        // System.out.println("Previous Output: Q=" + previousQ);
-        // System.out.println("New Output: Q=" + newQ);
+        // Add current iteration to history
+        String currentIteration = String.format("R=%d, S=%d → Q=%d", r, s, newQ);
+        iterationHistory.add(currentIteration);
 
+        // Display history of iterations
+        System.out.println("\nIteration History:");
+        displayTableHeader("Iteration", "Inputs", "Output");
+        for (int i = 0; i < iterationHistory.size(); i++) {
+            String[] parts = iterationHistory.get(i).split(" → ");
+            displayTableRow("" + (i + 1), parts[0], parts[1]);
+        }
+        displayTableFooter(3);
+
+        // Display current state
+        System.out.println("\nCurrent State:");
         if (r == 1 && s == 1) {
             System.out.println("Note: R=1, S=1 is an invalid state for RS Flip-Flop.");
-            displayTableHeader("Previous Inputs", "R", "S", "Q(t+1)");
-            displayTableRow(prevInputs, ""+r, ""+s, "Undefined");
+            displayTableHeader("Previous Input", "R", "S", "Q(t+1)");
+            displayTableRow(previousInputsExist ? "R=" + previousInputs[0] + ", S=" + previousInputs[1] : "N/A", ""+r, ""+s, "Undefined");
             displayTableFooter(4);
         } else {
             displayTableHeader("Previous Input", "R", "S", "Q(t+1)");
-            displayTableRow(prevInputs, ""+r, ""+s, ""+newQ);
+            displayTableRow(previousInputsExist ? "R=" + previousInputs[0] + ", S=" + previousInputs[1] : "N/A", ""+r, ""+s, ""+newQ);
             displayTableFooter(4);
         }
     }
