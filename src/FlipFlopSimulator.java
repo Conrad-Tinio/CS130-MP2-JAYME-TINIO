@@ -54,7 +54,7 @@ public class FlipFlopSimulator {
                     jkFlipFlop.setPreviousInputs(jkInputs);
                     jkFlipFlop.simulate();
                     sharedOutput = jkFlipFlop.getOutput();
-                    jkInputs = dFlipFlop.getPreviousInputs();
+                    jkInputs = jkFlipFlop.getPreviousInputs();
                     break;
                 case 4:
                     // T FlipFlop for case 4
