@@ -120,7 +120,7 @@ public class JKFlipFlop extends FlipFlop {
         System.out.println("Flip-Flop Type: JK");
 
         // Add current iteration to history
-        String currentIteration = String.format("J=%d, K=%d → Q=%d", j, k, newQ);
+        String currentIteration = String.format("J=%d, K=%d → %d", j, k, newQ);
         iterationHistory.add(currentIteration);
 
         // Display history of iterations

@@ -97,7 +97,7 @@ public class DFlipFlop extends FlipFlop {
         System.out.println("Flip-Flop Type: D");
 
         // Add current iteration to history
-        String currentIteration = String.format("D=%d → Q=%d", d, newQ);
+        String currentIteration = String.format("D=%d → %d", d, newQ);
         iterationHistory.add(currentIteration);
 
         // Display history of iterations
