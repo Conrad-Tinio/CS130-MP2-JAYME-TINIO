@@ -125,7 +125,7 @@ public class JKFlipFlop extends FlipFlop {
 
         // Display history of iterations
         System.out.println("\nIteration History:");
-        displayTableHeader("Iteration", "Inputs", "Output");
+        displayTableHeader("Iteration", "Inputs", "Q(t+1)");
         for (int i = 0; i < iterationHistory.size(); i++) {
             String[] parts = iterationHistory.get(i).split(" → ");
             displayTableRow("" + (i + 1), parts[0], parts[1]);

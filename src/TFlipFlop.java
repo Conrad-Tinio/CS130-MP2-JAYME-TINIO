@@ -105,7 +105,7 @@ public class TFlipFlop extends FlipFlop {
 
         // Display history of iterations
         System.out.println("\nIteration History:");
-        displayTableHeader("Iteration", "Input", "Output");
+        displayTableHeader("Iteration", "Input", "Q(t+1)");
         for (int i = 0; i < iterationHistory.size(); i++) {
             String[] parts = iterationHistory.get(i).split(" → ");
             displayTableRow("" + (i + 1), parts[0], parts[1]);
