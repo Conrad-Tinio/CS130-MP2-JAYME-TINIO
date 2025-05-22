@@ -36,6 +36,8 @@ public abstract class FlipFlop {
         this.previousInputs = inputs; 
     }
 
+    public abstract void clearOutputs(); 
+
     // function is overridden for each FlipFlop class type that extends this class
     public abstract void simulate();
 

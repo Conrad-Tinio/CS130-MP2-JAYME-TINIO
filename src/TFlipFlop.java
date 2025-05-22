@@ -17,6 +17,12 @@ public class TFlipFlop extends FlipFlop {
     }
 
     @Override
+    public void clearOutputs() {
+        previousInputs[0] = 0;
+        previousOutput = 0; 
+    }
+
+    @Override
     public void displayTruthTable() {
         displayTableHeader( "T", "Q(t+1)");
         displayTableRow("0", "Q(t)  / No Change");
@@ -69,6 +75,7 @@ public class TFlipFlop extends FlipFlop {
             // if 2 is chosen, goes back to main menu
             int choice = getIntInput("Enter your choice (1-2): ", 1, 2);
             if (choice == 2) {
+                clearOutputs();
                 flipFlopRunning = false;
             }
         }

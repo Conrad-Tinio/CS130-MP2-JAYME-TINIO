@@ -11,6 +11,13 @@ public class RSFlipFlop extends FlipFlop {
         previousInputs = new int[2]; 
     }
 
+    @Override
+    public void clearOutputs() {
+        previousInputs[0] = 0; 
+        previousInputs[1] = 0; 
+        previousOutput = 0; 
+    }
+
     @Override 
     protected void processInputReset() {
         System.out.println("\nNOTE: RS inputs have reset back to 0.");
@@ -80,6 +87,7 @@ public class RSFlipFlop extends FlipFlop {
             // terminates FlipFlop if 2 is picked
             int choice = getIntInput("Enter your choice (1-2): ", 1, 2);
             if (choice == 2) {
+                clearOutputs();
                 flipFlopRunning = false;
             }
         }
